@@ -1,7 +1,9 @@
-"""Testing weatherbot"""
-from weatherbot import __version__
+# -*- coding: utf-8 -*-
+
+"""Testing weatherbot."""
+from weather_bot.hello import main
 
 
-def test_version():
-    """Test version"""
-    assert __version__ == '0.1.0'
+def test_main():
+    """Test main function."""
+    assert main() == 'hello world!'
