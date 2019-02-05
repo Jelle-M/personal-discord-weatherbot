@@ -1,0 +1,5 @@
+Linting contract:
+  containers:
+    - weather_bot
+  layers:
+    - some_layer

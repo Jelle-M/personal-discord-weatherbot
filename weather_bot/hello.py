@@ -3,10 +3,6 @@
 """Print Hello, World!."""
 
 
-def main():
+def main() -> str:
     """Print Hello world."""
     return 'hello world!'
-
-
-if __name__ == '__main__':
-    main()

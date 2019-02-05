@@ -11,6 +11,9 @@ attrs = "^18.2"
 typing_extensions = "^3.7"
 wemake-python-styleguide = "^0.7.0"
 "discord.py" = "^0.16.12"
+mypy = "^0.660.0"
+layer-linter = "^0.12.1"
+pytest-cov = "^2.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
