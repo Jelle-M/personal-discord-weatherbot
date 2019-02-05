@@ -1,14 +1,13 @@
+[![Build Status](https://travis-ci.com/MoskiMBA/personal-discord-weatherbot.svg?branch=master)](https://travis-ci.com/MoskiMBA/personal-discord-weatherbot)
+[![Coverage Status](https://coveralls.io/repos/github/MoskiMBA/personal-discord-weatherbot/badge.svg?branch=master)](https://coveralls.io/github/MoskiMBA/personal-discord-weatherbot?branch=master)
+![Python Version](https://img.shields.io/badge/python-3.6%20%7C%203.7-blue.svg)
+
 # personal-discord-weatherbot
 Receive automated weather updates through discord.
 
 Every 24 hours receive a push notification on both desktop and mobile to get the current weather. 
 
-
-## Setup
-
-
-
-## Use case
+## Requirements
 
 
 ## TODO
@@ -19,7 +18,9 @@ Easiest implementation of this cross platform problem would be to use a discord 
 Repo init
 
 - [x] Init README.md
+- [x] CI
 - [ ] Issues
+- [ ] Docs/requirements/howto
 
 Test individual components
 
