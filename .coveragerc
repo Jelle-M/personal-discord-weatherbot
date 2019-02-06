@@ -1,0 +1,6 @@
+[report]
+omit =
+    */python?.?/*
+    *__init__*
+    weather_bot/config/*
+    weather_bot/bot.py
