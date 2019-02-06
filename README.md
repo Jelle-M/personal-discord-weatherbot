@@ -10,6 +10,21 @@ Every 24 hours receive a push notification on both desktop and mobile to get the
 
 ## Requirements
 
+Setup discord bot (see references) and register to Dark Sky to accquire API tokens/keys.
+Place them in `weather_bot/config/token.py` like below.
+```
+# weather_bot/config/token.py
+
+# -*- coding: utf-8 -*-
+
+"""This file contains the bot token."""
+DISCORD_BOT_TOKEN = (
+    'NTQ-DISCORD-TOKEN-udA'
+)
+DARK_SKY_TOKEN = 'be1-DARK-SKY-TOKEN-de8'
+
+```
+
 
 ## TODO
 
