@@ -3,6 +3,8 @@
 """Discord bot."""
 import argparse
 import logging as log
+from argparse import Namespace
+from typing import Dict
 
 import discord
 
@@ -33,9 +35,8 @@ async def on_ready():
     log.debug('------')
 
 
-def parse_args():
+def parse_arguments() -> Namespace:
     """Parse arguments."""
-    parser = argparse.parser()
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument(
         '-v', '--verbose', action='store_true', help='Show debug messages',
@@ -45,6 +46,6 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    args = parse_args()
+    args = parse_arguments()
     if args.verbose:
         log.basicConfig(filename='weather_bot.log', level=log.DEBUG)
