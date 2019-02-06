@@ -14,6 +14,9 @@ wemake-python-styleguide = "^0.7.0"
 mypy = "^0.660.0"
 layer-linter = "^0.12.1"
 pytest-cov = "^2.6"
+darkskylib = "^0.3.91"
+geopy = "^1.18"
+requests = "^2.21"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
