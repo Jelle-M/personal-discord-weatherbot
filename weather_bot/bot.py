@@ -9,9 +9,8 @@ import discord
 
 from weather_bot.config import token  # type:ignore
 
-TOKEN = token.DISCORD_BOT_TOKEN
 client = discord.Client()
-client.run(TOKEN)
+client.run(token.DISCORD_BOT_TOKEN)
 
 
 @client.event
@@ -36,7 +35,7 @@ async def on_ready():
 
 def parse_arguments() -> Namespace:
     """Parse arguments."""
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser(description='Parse arguments')
     parser.add_argument(
         '-v', '--verbose', action='store_true', help='Show debug messages',
     )
