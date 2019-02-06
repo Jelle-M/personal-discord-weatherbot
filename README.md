@@ -25,7 +25,7 @@ Repo init
 
 Test individual components
 
-- [ ] Contact API to receive weather information
+- [x] Contact API to receive weather information
 - [x] Run simple discord bot locally
 - [ ] Deploy bot on Heroku
 
@@ -51,5 +51,9 @@ conditions and a 3 day forecast. Uses [Yahoo's YQL weather endpoint](https://dev
     - https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token
     - https://www.devdungeon.com/content/make-discord-bot-python
     - https://medium.com/@moomooptas/how-to-make-a-simple-discord-bot-in-python-40ed991468b4
+
+1. Dark Sky weather API
+    - [Python wrapper for the Dark Sky API](https://pypi.org/project/darkskylib/)
+    - [Dark Sky weather API](https://darksky.net)
 
 
