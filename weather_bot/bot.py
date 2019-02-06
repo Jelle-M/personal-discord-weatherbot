@@ -7,9 +7,8 @@ import discord
 
 from weather_bot.config import token  # type:ignore
 
-TOKEN = token.DISCORD_BOT_TOKEN
 client = discord.Client()
-client.run(TOKEN)
+client.run(token.DISCORD_BOT_TOKEN)
 
 
 @client.event
