@@ -4,11 +4,10 @@
 import argparse
 import logging as log
 from argparse import Namespace
-from typing import Dict
 
 import discord
 
-from weather_bot.config import token
+from weather_bot.config import token  # type:ignore
 
 TOKEN = token.DISCORD_BOT_TOKEN
 client = discord.Client()
