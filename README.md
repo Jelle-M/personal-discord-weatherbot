@@ -37,7 +37,7 @@ Integrate a simple discord bot with api request
 Publish bot
 
 ## References
-1. [Python Wrapper]https://github.com/csparpa/pyowm to contact [OpenWeatherMap API](https://openweathermap.org/api):.
+1. [Python Wrapper](https://github.com/csparpa/pyowm) to contact [OpenWeatherMap API](https://openweathermap.org/api):.
 Offers current weather data and a 5 day forecast.
 
 1. [4CAST Weather bot](https://github.com/lluisrojass/discord-forecast-bot) fetches and provides weather
