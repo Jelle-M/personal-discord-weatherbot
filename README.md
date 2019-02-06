@@ -24,8 +24,8 @@ Repo init
 
 Test individual components
 
-- [ ] Contact API to receive weather information
-- [ ] Run simple discord bot locally
+- [x] Contact API to receive weather information
+- [x] Run simple discord bot locally
 - [ ] Deploy bot on Heroku
 
 Integrate a simple discord bot with api request
