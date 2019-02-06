@@ -21,10 +21,10 @@ script:
   - poetry run mypy weather_bot
     #  - poetry run layer-lint --quiet personal-discord-weatherbot  # skip: not need for now
     #  - poetry run pytest
-  - python -m pytest tests/
+    # - python -m pytest tests/
   - poetry check
   - pip check
 
-after_success:
-  - pip install coveralls
-  - coveralls
+    # after_success:
+    #   - pip install coveralls
+    #   - coveralls
