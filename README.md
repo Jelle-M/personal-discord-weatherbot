@@ -8,6 +8,9 @@ Receive automated weather updates through discord.
 
 Every 24 hours receive a push notification on both desktop and mobile to get the current weather. 
 
+Sample of a message with forecast information  
+![reply_forecast1][reply_forecast1]
+
 ## Requirements
 
 Setup discord bot (see references) and register to Dark Sky to accquire API tokens/keys.
@@ -75,4 +78,6 @@ conditions and a 3 day forecast. Uses [Yahoo's YQL weather endpoint](https://dev
     - [Python wrapper for the Dark Sky API](https://pypi.org/project/darkskylib/)
     - [Dark Sky weather API](https://darksky.net)
 
+<!-- Links to image -->
+[reply_forecast1]: images/reply_forecast1.png "Reply forecast1"
 
