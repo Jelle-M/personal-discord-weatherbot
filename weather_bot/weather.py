@@ -15,7 +15,7 @@ from geopy.exc import GeocoderServiceError
 from geopy.geocoders import Nominatim
 from requests.exceptions import HTTPError
 
-from config import token  # type:ignore
+from config import token
 
 TOKEN = token.DARK_SKY_TOKEN
 

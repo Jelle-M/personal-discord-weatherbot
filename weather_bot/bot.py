@@ -6,7 +6,7 @@ import logging as log
 from darksky.forecast import Forecast
 from discord.ext.commands import Bot
 
-from config import token  # type:ignore
+from config import token
 from weather import Weather
 
 bot = Bot(
