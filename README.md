@@ -35,7 +35,7 @@ Repo init
 
 - [x] Init README.md
 - [x] CI
-- [ ] Issues
+- [x] Issues
 - [ ] Docs/requirements/howto
 
 Test individual components
@@ -46,9 +46,13 @@ Test individual components
 
 Integrate a simple discord bot with api request
 
-- [ ] Send request to discord bot, returns weather info
-- [ ] Automaticly every x time, trigger discord bot
-- [ ] Format output of bot
+- [x] Send request to discord bot, returns weather info
+- [ ] Format output of bot (i.e. add Emoji's)
+
+Automaticly trigger event
+- [ ] Every x time, trigger discord bot
+- [ ] Add conditional logic to bot command
+- [ ] Format output of bot (i.e. add Emoji's)
 
 Publish bot
 
