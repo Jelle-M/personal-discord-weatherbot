@@ -17,7 +17,7 @@ Place them in `weather_bot/config/token.py` like below.
 
 # -*- coding: utf-8 -*-
 
-"""This file contains the bot token."""
+"""This file contains the necessary tokens/keys."""
 DISCORD_BOT_TOKEN = (
     'NTQ-DISCORD-TOKEN-udA'
 )
