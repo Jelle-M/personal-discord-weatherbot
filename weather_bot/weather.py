@@ -15,7 +15,7 @@ from geopy.exc import GeocoderServiceError
 from geopy.geocoders import Nominatim
 from requests.exceptions import HTTPError
 
-from weather_bot.config import token  # type:ignore
+from config import token  # type:ignore
 
 TOKEN = token.DARK_SKY_TOKEN
 
@@ -60,9 +60,14 @@ class Weather(NamedTuple):
 
         """
         try:
-            weather_location = forecast(TOKEN, self.latitude, self.longitude)
+            weather_location = forecast(
+                TOKEN,
+                self.latitude,
+                self.longitude,
+                units='si',
+            )
             log.debug(
-                'Dark Sky responded in %s',
+                'Dark Sky responded in ',
                 weather_location.response_headers['X-response-Time'],
                 )
         except HTTPError:
