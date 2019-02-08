@@ -2,8 +2,10 @@
 
 """Discord bot."""
 import logging as log
+from asyncio import sleep
 
 from darksky.forecast import Forecast
+from discord import Message
 from discord.ext.commands import Bot
 
 from config import token
@@ -15,6 +17,16 @@ bot = Bot(
     description='Current Conditions & Forecast',
     pm_help=True,
 )
+
+
+async def my_background_task(channel: Message.channel):
+    """Send message."""
+    await bot.wait_until_ready()
+    counter = 0
+    while not bot.is_closed:
+        counter += 1
+        await bot.send_message(channel, counter)
+        await sleep(10)
 
 
 def format_darksky_forecast(forecast: Forecast):
@@ -65,6 +77,7 @@ async def hello(ctx, *args):
     """Reply sender with hello."""
     channel = ctx.message.channel
     forecast_message = 'Hello {0}!'.format(ctx.message.author.mention)
+    bot.loop.create_task(my_background_task(channel))
     await bot.send_message(channel, forecast_message)
 
 
