@@ -7,7 +7,7 @@ from darksky.forecast import Forecast
 from discord.ext.commands import Bot
 
 from config import token
-from weather import Weather
+from weather import Location
 
 bot = Bot(
     command_prefix='w!',
@@ -49,12 +49,12 @@ def format_darksky_forecast(forecast: Forecast):
 async def forecast(ctx, *args):
     """Reply sender with forecast."""
     channel = ctx.message.channel
-    location = ' '.join(str(loc) for loc in args)
-    forecast_for_location = Weather.from_location(location).forecast()
+    description = ' '.join(str(loc) for loc in args)
+    forecast_for_location = Location.from_description(description).forecast()
     forecast_formatted = format_darksky_forecast(forecast_for_location)
     forecast_message = '{0}\nForecast for {1}:\n{2}'.format(
         ctx.message.author.mention,
-        location,
+        description,
         forecast_formatted,
     )
     await bot.send_message(channel, forecast_message)
