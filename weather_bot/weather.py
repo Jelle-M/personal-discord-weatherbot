@@ -5,7 +5,7 @@
 Dark Sky API requires an API key, latitude and longitude.
 
 Latitude and longitude can be entered or using the geopy we can translate a
-location string to their latitude and longitude coordinates
+location description string to their latitude and longitude coordinates
 """
 import logging as log
 from typing import NamedTuple
@@ -24,15 +24,15 @@ class WeatherError(Exception):
     """Raises when something went wrong during creation or forecast."""
 
 
-class Weather(NamedTuple):
-    """Hold location and can return weather forecast."""
+class Location(NamedTuple):
+    """Hold location and return weather forecast."""
 
     latitude: float
     longitude: float
 
     @classmethod
-    def from_location(cls, location: str):
-        """Find latitude and longitude based on location string.
+    def from_description(cls, description: str):
+        """Find latitude and longitude based on description string.
 
         Raises:
             WeatherError
@@ -40,7 +40,7 @@ class Weather(NamedTuple):
         """
         geolocator = Nominatim(user_agent='personal-weather-bot')
         try:
-            geo_location = geolocator.geocode(location)
+            geo_location = geolocator.geocode(description)
         except GeocoderServiceError:  # pragma: no cover
             log.warning('Could not connect!')
             raise WeatherError
