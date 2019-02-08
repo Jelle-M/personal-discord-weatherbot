@@ -60,6 +60,14 @@ async def forecast(ctx, *args):
     await bot.send_message(channel, forecast_message)
 
 
+@bot.command(pass_context=True)
+async def hello(ctx, *args):
+    """Reply sender with hello."""
+    channel = ctx.message.channel
+    forecast_message = 'Hello {0}!'.format(ctx.message.author.mention)
+    await bot.send_message(channel, forecast_message)
+
+
 @bot.event
 async def on_ready():
     """Log some info when ready."""
