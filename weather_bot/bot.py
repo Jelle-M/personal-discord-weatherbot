@@ -2,13 +2,14 @@
 
 """Discord bot."""
 import logging as log
-from asyncio import sleep
+from typing import Callable
 
 from darksky.forecast import Forecast
-from discord import Message
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, Context
 
 from config import token
+from formats import format_daily_forecast, format_darksky_forecast
+from tasks import freeze_alert_task, hello_task
 from weather import Location
 
 bot = Bot(
@@ -19,51 +20,16 @@ bot = Bot(
 )
 
 
-async def my_background_task(channel: Message.channel):
-    """Send message."""
-    await bot.wait_until_ready()
-    counter = 0
-    while not bot.is_closed:
-        counter += 1
-        await bot.send_message(channel, counter)
-        await sleep(10)
-
-
-def format_darksky_forecast(forecast: Forecast):
-    """Format Forecast object to display in message."""
-    temperature = '{0} \u00B0C'
-    formatted = ''
-    # TODO: format with Discord.Emoji()
-    # Weather currently
-    formatted += 'Weather currently\n'
-    formatted += forecast.currently.summary + ' '
-    formatted += temperature.format(forecast.currently.temperature)
-    formatted += '\n\n'
-    # Weather next hour
-    formatted += 'Weather for the next hour\n'
-    formatted += forecast.hourly.data[1].summary + ' '
-    formatted += temperature.format(forecast.hourly.data[1].temperature)
-    formatted += '\n\n'
-    # Summary Weather for next 7 days
-    formatted += 'Weather for next 7 days\n'
-    formatted += forecast.daily.summary
-    formatted += '\n\n'
-    # Weather today, tomorrow and day after
-    summaries = ('Today: {0}', 'Tomorrow: {0}', 'Day-after-tomorrow: {0}')
-    for daily_forecast, summary in zip(forecast.daily.data[:3], summaries):
-        formatted += summary.format(daily_forecast.summary) + ' '
-        formatted += temperature.format(daily_forecast.temperatureLow) + ' '
-        formatted += temperature.format(daily_forecast.temperatureHigh) + '\n'
-    return formatted
-
-
-@bot.command(pass_context=True)
-async def forecast(ctx, *args):
+async def forecast_controller(
+    ctx: Context,
+    formatter: Callable[[Forecast], None],
+    *args: str,
+) -> None:
     """Reply sender with forecast."""
     channel = ctx.message.channel
     description = ' '.join(str(loc) for loc in args)
     forecast_for_location = Location.from_description(description).forecast()
-    forecast_formatted = format_darksky_forecast(forecast_for_location)
+    forecast_formatted = formatter(forecast_for_location)
     forecast_message = '{0}\nForecast for {1}:\n{2}'.format(
         ctx.message.author.mention,
         description,
@@ -73,12 +39,33 @@ async def forecast(ctx, *args):
 
 
 @bot.command(pass_context=True)
-async def hello(ctx, *args):
-    """Reply sender with hello."""
+async def forecast(ctx, *args):
+    """Reply sender with forecast."""
+    await forecast_controller(ctx, format_darksky_forecast, *args)
+
+
+@bot.command(pass_context=True)
+async def daily(ctx, *args):
+    """Reply sender with forecast for the day."""
+    await forecast_controller(ctx, format_daily_forecast, *args)
+
+
+@bot.command(pass_context=True)
+async def freeze(ctx, *args):
+    """Subscribe to a freeze alert task."""
     channel = ctx.message.channel
-    forecast_message = 'Hello {0}!'.format(ctx.message.author.mention)
-    bot.loop.create_task(my_background_task(channel))
+    forecast_message = 'Subscribing to freeze alert! {0}'.format(
+        ctx.message.author.mention,
+    )
+    bot.loop.create_task(freeze_alert_task(bot, ctx, *args))
     await bot.send_message(channel, forecast_message)
+
+
+@bot.command(pass_context=True)
+async def hello(ctx, *args):
+    """Create hello task."""
+    channel = ctx.message.channel
+    bot.loop.create_task(hello_task(bot, channel))
 
 
 @bot.event
