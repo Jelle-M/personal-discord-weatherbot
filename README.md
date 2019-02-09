@@ -56,8 +56,9 @@ Integrate a simple discord bot with api request
 - [ ] Format output of bot (i.e. add Emoji's)
 
 Automaticly trigger event
-- [ ] Every x time, trigger discord bot
-- [ ] Add conditional logic to bot command
+- [x] Every x time, trigger discord bot
+- [x] Add conditional logic to bot command
+- [ ] At set time trigger check for alert, i.e. 4:00PM 
 - [ ] Format output of bot (i.e. add Emoji's)
 
 Publish bot
