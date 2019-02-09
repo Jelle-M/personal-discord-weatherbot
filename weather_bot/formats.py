@@ -3,8 +3,6 @@
 """Format a Forecast object to string."""
 from darksky.forecast import Forecast
 
-from forecast_logic import is_tomorrow_freeze
-
 
 def format_daily_forecast(forecast: Forecast):
     """Format Forecast object to display in message."""
@@ -51,13 +49,3 @@ def format_darksky_forecast(forecast: Forecast):
         formatted += temperature.format(daily_forecast.temperatureLow) + ' '
         formatted += temperature.format(daily_forecast.temperatureHigh) + '\n'
     return formatted
-
-
-def format_freeze_forecast(forecast: Forecast):
-    """Give additional information about freezing temps."""
-    formatted = ''
-    if is_tomorrow_freeze(forecast):
-        formatted += 'Temps tomorrow will be below zero!\n'
-    else:
-        formatted += 'Temps tomorrow will be above zero!\n'
-    return formatted + format_daily_forecast(forecast)

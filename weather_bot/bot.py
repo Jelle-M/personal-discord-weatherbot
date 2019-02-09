@@ -2,19 +2,14 @@
 
 """Discord bot."""
 import logging as log
-from asyncio import sleep
 from typing import Callable
 
 from darksky.forecast import Forecast
-from discord import Message
 from discord.ext.commands import Bot, Context
 
 from config import token
-from formats import (
-    format_daily_forecast,
-    format_darksky_forecast,
-    format_freeze_forecast,
-)
+from formats import format_daily_forecast, format_darksky_forecast
+from tasks import freeze_alert_task, hello_task
 from weather import Location
 
 bot = Bot(
@@ -23,16 +18,6 @@ bot = Bot(
     description='Current Conditions & Forecast',
     pm_help=True,
 )
-
-
-async def my_background_task(channel: Message.channel):
-    """Send message."""
-    await bot.wait_until_ready()
-    counter = 0
-    while not bot.is_closed:
-        counter += 1
-        await bot.send_message(channel, counter)
-        await sleep(10)
 
 
 async def forecast_controller(
@@ -60,24 +45,27 @@ async def forecast(ctx, *args):
 
 
 @bot.command(pass_context=True)
-async def freeze(ctx, *args):
-    """Reply sender with forecast."""
-    await forecast_controller(ctx, format_freeze_forecast, *args)
-
-
-@bot.command(pass_context=True)
 async def daily(ctx, *args):
     """Reply sender with forecast for the day."""
     await forecast_controller(ctx, format_daily_forecast, *args)
 
 
 @bot.command(pass_context=True)
-async def hello(ctx, *args):
-    """Reply sender with hello."""
+async def freeze(ctx, *args):
+    """Subscribe to a freeze alert task."""
     channel = ctx.message.channel
-    forecast_message = 'Hello {0}!'.format(ctx.message.author.mention)
-    bot.loop.create_task(my_background_task(channel))
+    forecast_message = 'Subscribing to freeze alert! {0}'.format(
+        ctx.message.author.mention,
+    )
+    bot.loop.create_task(freeze_alert_task(bot, ctx, *args))
     await bot.send_message(channel, forecast_message)
+
+
+@bot.command(pass_context=True)
+async def hello(ctx, *args):
+    """Create hello task."""
+    channel = ctx.message.channel
+    bot.loop.create_task(hello_task(bot, channel))
 
 
 @bot.event
