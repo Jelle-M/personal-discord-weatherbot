@@ -3,12 +3,18 @@
 """Discord bot."""
 import logging as log
 from asyncio import sleep
+from typing import Callable
 
 from darksky.forecast import Forecast
 from discord import Message
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, Context
 
 from config import token
+from formats import (
+    format_daily_forecast,
+    format_darksky_forecast,
+    format_freeze_forecast,
+)
 from weather import Location
 
 bot = Bot(
@@ -29,47 +35,40 @@ async def my_background_task(channel: Message.channel):
         await sleep(10)
 
 
-def format_darksky_forecast(forecast: Forecast):
-    """Format Forecast object to display in message."""
-    temperature = '{0} \u00B0C'
-    formatted = ''
-    # TODO: format with Discord.Emoji()
-    # Weather currently
-    formatted += 'Weather currently\n'
-    formatted += forecast.currently.summary + ' '
-    formatted += temperature.format(forecast.currently.temperature)
-    formatted += '\n\n'
-    # Weather next hour
-    formatted += 'Weather for the next hour\n'
-    formatted += forecast.hourly.data[1].summary + ' '
-    formatted += temperature.format(forecast.hourly.data[1].temperature)
-    formatted += '\n\n'
-    # Summary Weather for next 7 days
-    formatted += 'Weather for next 7 days\n'
-    formatted += forecast.daily.summary
-    formatted += '\n\n'
-    # Weather today, tomorrow and day after
-    summaries = ('Today: {0}', 'Tomorrow: {0}', 'Day-after-tomorrow: {0}')
-    for daily_forecast, summary in zip(forecast.daily.data[:3], summaries):
-        formatted += summary.format(daily_forecast.summary) + ' '
-        formatted += temperature.format(daily_forecast.temperatureLow) + ' '
-        formatted += temperature.format(daily_forecast.temperatureHigh) + '\n'
-    return formatted
-
-
-@bot.command(pass_context=True)
-async def forecast(ctx, *args):
+async def forecast_controller(
+    ctx: Context,
+    formatter: Callable[[Forecast], None],
+    *args: str,
+) -> None:
     """Reply sender with forecast."""
     channel = ctx.message.channel
     description = ' '.join(str(loc) for loc in args)
     forecast_for_location = Location.from_description(description).forecast()
-    forecast_formatted = format_darksky_forecast(forecast_for_location)
+    forecast_formatted = formatter(forecast_for_location)
     forecast_message = '{0}\nForecast for {1}:\n{2}'.format(
         ctx.message.author.mention,
         description,
         forecast_formatted,
     )
     await bot.send_message(channel, forecast_message)
+
+
+@bot.command(pass_context=True)
+async def forecast(ctx, *args):
+    """Reply sender with forecast."""
+    await forecast_controller(ctx, format_darksky_forecast, *args)
+
+
+@bot.command(pass_context=True)
+async def freeze(ctx, *args):
+    """Reply sender with forecast."""
+    await forecast_controller(ctx, format_freeze_forecast, *args)
+
+
+@bot.command(pass_context=True)
+async def daily(ctx, *args):
+    """Reply sender with forecast for the day."""
+    await forecast_controller(ctx, format_daily_forecast, *args)
 
 
 @bot.command(pass_context=True)
