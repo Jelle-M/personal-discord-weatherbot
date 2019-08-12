@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/MoskiMBA/personal-discord-weatherbot.svg?branch=master)](https://travis-ci.com/MoskiMBA/personal-discord-weatherbot)
+[![Build Status](https://travis-ci.com/Jelle-M/personal-discord-weatherbot.svg?branch=master)](https://travis-ci.com/Jelle-M/personal-discord-weatherbot)
 ![Python Version](https://img.shields.io/badge/python-3.6%20%7C%203.7-blue.svg)
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 
